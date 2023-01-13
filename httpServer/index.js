@@ -1,27 +1,26 @@
-var http = require('http');
+const http = require("http");
+const fs = require("fs");
 
-//create a server object:
-http.createServer(function (req, res) {
+const server = http.createServer((req, res) => {
+  const data = fs.readFileSync(`${__dirname}/UserApi/userapi.json`, "utf-8");
+  const objData = JSON.parse(data);
 
-    if(req.url == "/"){
-        res.write('Home page!');
-        res.end(); 
-    }
-    else if(req.url == "/about"){
-        res.write('About page!');
-        res.end(); 
-    }
-    else if(req.url == "/contact"){
-        res.write('Contact page!');
-        res.end(); 
-    }
-    else if(req.url == "/media"){
-        res.write('media page!');
-        res.end(); 
-    }
-    else{
-        res.write('page does not exist');
-        res.end(); 
-    }
+  // console.log(req.url);
+  if (req.url == "/") {
+    res.end("Hello from the home sides");
+  } else if (req.url == "/about") {
+    res.end("Hello from the AboutUS sides");
+  } else if (req.url == "/contact") {
+    res.end("Hello from the contactUS sides");
+  } else if (req.url == "/userapi") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(objData[4].name);
+  } else {
+    res.writeHead(404, { "Content-type": "text/html" });
+    res.end("<h1> 404 error pages. Page doesn't exist </h1>");
+  }
+});
 
-}).listen(8080); 
+server.listen(8000, "127.0.0.1", () => {
+  console.log("listening to the port no 8000");
+});
