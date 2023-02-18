@@ -1,5 +1,5 @@
 // const add = require("./oper");
-const {f,s,t} = require("./oper");
+const { f, s, t } = require("./oper");
 
 
 
